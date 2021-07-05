@@ -7,6 +7,6 @@ metadata:
 spec:
   containers:
     - name: nodeapp
-      image: ajit4/jenkins-k8s:v1
+      image: ajit4/jenkins-k8s:version
       ports:
         - containerPort: 8081
