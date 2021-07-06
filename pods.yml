@@ -9,4 +9,4 @@ spec:
     - name: nodeapp
       image: ajit4/jenkins-k8s:version
       ports:
-        - containerPort: 8081
+        - containerPort: 8080
