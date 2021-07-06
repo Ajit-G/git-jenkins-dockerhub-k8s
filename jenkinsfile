@@ -39,8 +39,11 @@ pipeline{
             steps{
                 sh '''chmod +x ./changeTag.sh
                       ./changeTag.sh "${tag}"'''
-               withCredentials([kubeconfigContent(credentialsId: '91bb106e-4900-4bb9-babb-4e8748ecc780', variable: 'KUBECONFIG_CONTENT')]) {
-                    sh 'kubectl apply -f pods.yml'
+                withCredentials([usernamePassword(credentialsId: 'server', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                    sh 'ssh cetnos@192.168.0.107 -p ${pass}'
+                    sh scp ./node-app.pod.yml services.yml centos@192.168.0.107:/home/centos/Desktop/
+                }
+                    sh 'kubectl apply -f node-app-pod.yml'
                     sh 'kubectl apply -f services.yml'
                 }
             }
