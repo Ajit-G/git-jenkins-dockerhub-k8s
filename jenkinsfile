@@ -39,19 +39,19 @@ pipeline{
             steps{
                 sh '''chmod +x ./changeTag.sh
                       ./changeTag.sh "${tag}"'''
-                sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
-                sh 'chmod u+x ./kubectl'
+                sh 'kubectl apply -f pods.yml'
+                sh 'kubectl apply -f services.yml'
 
-                script {
+                /*script {
                     try{
-                        sh './kubectl apply -f pods.yml'
-                        sh './kubectl apply -f services.yml'
+                        sh 'kubectl apply -f pods.yml'
+                        sh 'kubectl apply -f services.yml'
                     }
                     catch(error){
-                        sh './kubectl create -f pods.yml'
-                        sh './kubectl create -f services.yml'
+                        sh 'kubectl create -f pods.yml'
+                        sh 'kubectl create -f services.yml'
                     }
-                }
+                }*/
 
             }
 
