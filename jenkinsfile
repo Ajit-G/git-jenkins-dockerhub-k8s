@@ -41,8 +41,7 @@ pipeline{
                       ./changeTag.sh "${tag}"''' 
                       
                  sshagent(['minikube-server']) {
-                    sh 'scp ./node-app-pod.yml services.yml ubuntu@192.168.0.106:/home/ubuntu/Desktop/'
-                    sh 'cd /home/ubuntu/Desktop'
+                    sh 'scp ./node-app-pod.yml services.yml ubuntu@192.168.0.106:/home/ubuntu/'
                     sh 'kubectl apply -f node-app-pod.yml'
                     sh 'kubectl apply -f services.yml'
                  }
