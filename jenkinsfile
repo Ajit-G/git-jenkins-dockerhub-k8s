@@ -39,7 +39,7 @@ pipeline{
             steps{
                 sh '''chmod +x ./changeTag.sh
                       ./changeTag.sh "${tag}"''' 
-                 sh 'sudo chown -R $USER $HOME/.kube'
+                // sh 'sudo chown -R $USER $HOME/.kube'
                     sh 'kubectl apply -f node-app-pod.yml'
                     sh 'kubectl apply -f services.yml'
                 
