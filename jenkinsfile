@@ -42,10 +42,10 @@ pipeline{
 
                 script {
                     try{
-                        sh 'kubectl apply -f ./node-app-pod.yml ./ services.yml'
+                        sh 'kubectl apply -f .'
                     }
-                    catch(all){
-                        sh 'kubectl create -f ./node-app-pod.yml ./ services.yml'
+                    catch(error){
+                        sh 'kubectl create -f .'
                     }
                 }
 
