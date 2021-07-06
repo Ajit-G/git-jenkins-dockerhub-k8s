@@ -37,8 +37,8 @@ pipeline{
         }
         stage("deploy to k8s"){
             steps{
-                sh 'chmod 666 changeTag.sh'
-                sh './changeTag.sh "${tag}"'
+                sh '''chmod 666 ./changeTag.sh
+                      ./changeTag.sh "${tag}"'''
 
                 script {
                     try{
