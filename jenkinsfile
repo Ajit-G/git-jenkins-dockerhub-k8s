@@ -39,9 +39,13 @@ pipeline{
             steps{
                 sh '''chmod +x ./changeTag.sh
                       ./changeTag.sh "${tag}"''' 
-                 sh 'sudo chown $USER:$USER $HOME/.kube'
+                      
+                 sshagent(['minikube-server']) {
+                    sh 'scp ./node-app-pod.yml services.yml ubuntu@192.168.0.106:/home/ubunut/Desktop/'
+                    sh 'cd /home/ubuntu/Desktop'
                     sh 'kubectl apply -f node-app-pod.yml'
                     sh 'kubectl apply -f services.yml'
+                 }
                 
             }
            
