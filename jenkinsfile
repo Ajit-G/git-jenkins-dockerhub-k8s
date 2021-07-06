@@ -39,7 +39,7 @@ pipeline{
             steps{
                 sh '''chmod +x ./changeTag.sh
                       ./changeTag.sh "${tag}"'''
-                kubeconfig(serverUrl: 'https://192.168.49.2:8443') {
+                withCredentials([kubeconfigContent(credentialsId: 'k8s', variable: 'KUBECONFIG_CONTENT')]) {
                     sh 'kubectl apply -f pods.yml'
                     sh 'kubectl apply -f services.yml'
                 }
