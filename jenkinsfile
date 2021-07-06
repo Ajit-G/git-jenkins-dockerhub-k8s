@@ -8,7 +8,7 @@ pipeline{
             steps{
                 echo "======== Starting Docker Build ========"
                 withCredentials([string(credentialsId: 'docker-hub', variable: 'docker-hub')]) {
-                    sh 'docker login -u ajit4 -p ${docker-hub}'
+                    sh 'docker login -u ajit4 -p "${docker-hub}"'
                     sh 'docker build -t ajit4/jenkins-k8s:"${tag}" .'
                 }
             }
