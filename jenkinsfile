@@ -4,7 +4,7 @@ pipeline{
         tag = "${BUILD_NUMBER}"
     }
     stages{
-        /*stage("Docker build"){
+        stage("Docker build"){
             steps{
                 echo "======== Starting Docker Build ========"
                 withCredentials([string(credentialsId: 'docker-hub', variable: 'docker_pass')]) {
@@ -34,7 +34,7 @@ pipeline{
                     echo "========Image push  failed========"
                 }
             }
-        }*/
+        }
         stage("deploy to k8s"){
             steps{
                 sh '''chmod +x ./changeTag.sh
