@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        tag = ${BUILD_NUMBER}
+        tag = "${BUILD_NUMBER}"
     }
     stages{
         stage("Docker build"){
@@ -9,7 +9,7 @@ pipeline{
                 echo "======== Starting Docker Build ========"
                 withCredentials([string(credentialsId: 'docker-hub', variable: 'docker-hub')]) {
                     sh 'docker login -u ajit4 -p ${docker-hub}'
-                    sh 'docker build -t ajit4/jenkins-k8s:${tag} .'
+                    sh 'docker build -t ajit4/jenkins-k8s:"${tag}" .'
                 }
             }
             post{
@@ -24,7 +24,7 @@ pipeline{
         stage("Image push to docker hub"){
             steps{
                 echo "======== Pushing image to registry ========"
-                sh 'docker push ajit4/jenkins-k8s:${tag}'
+                sh 'docker push ajit4/jenkins-k8s:"${tag}"'
             }
             post{
                 success{
@@ -37,7 +37,7 @@ pipeline{
         }
         stage("deploy to k8s"){
             steps{
-                sh './changeTag.sh ${tag}'
+                sh './changeTag.sh "${tag}"'
                 script {
                     try{
                         sh 'kubectl apply -f ./node-app-pod.yml ./ services.yml'
