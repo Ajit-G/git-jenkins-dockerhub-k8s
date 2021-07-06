@@ -42,12 +42,12 @@ pipeline{
 
                 script {
                     try{
-                        sh 'kubectl apply -f pods.yml'
-                        sh 'kubectl apply -f services.yml'
+                        sh './kubectl apply -f pods.yml'
+                        sh './kubectl apply -f services.yml'
                     }
                     catch(error){
-                        sh 'kubectl create -f pods.yml'
-                        sh 'kubectl create -f services.yml'
+                        sh './kubectl create -f pods.yml'
+                        sh './kubectl create -f services.yml'
                     }
                 }
 
