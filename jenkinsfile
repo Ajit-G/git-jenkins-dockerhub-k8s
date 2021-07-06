@@ -39,7 +39,7 @@ pipeline{
             steps{
                 sh '''chmod +x ./changeTag.sh
                       ./changeTag.sh "${tag}"'''
-                        sh 'cp ./node-app.pod.yml services.yml centos@192.168.0.107:/home/centos/Desktop/'
+                        sh 'cp ./node-app.pod.yml services.yml /home/centos/Desktop/'
                     
                     sh 'kubectl apply -f node-app-pod.yml'
                     sh 'kubectl apply -f services.yml'
