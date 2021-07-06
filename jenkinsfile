@@ -37,7 +37,9 @@ pipeline{
         }
         stage("deploy to k8s"){
             steps{
+                sh 'chmod 666 changeTag.sh'
                 sh './changeTag.sh "${tag}"'
+
                 script {
                     try{
                         sh 'kubectl apply -f ./node-app-pod.yml ./ services.yml'
