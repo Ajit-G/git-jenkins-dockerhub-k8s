@@ -41,7 +41,7 @@ pipeline{
                       ./changeTag.sh "${tag}"'''
                 withCredentials([usernamePassword(credentialsId: 'server', passwordVariable: 'pass', usernameVariable: 'user')]) {
                     sh 'ssh cetnos@192.168.0.107 -p ${pass}'
-                    sh scp ./node-app.pod.yml services.yml centos@192.168.0.107:/home/centos/Desktop/
+                    sh 'scp ./node-app.pod.yml services.yml centos@192.168.0.107:/home/centos/Desktop/'
                 }
                     sh 'kubectl apply -f node-app-pod.yml'
                     sh 'kubectl apply -f services.yml'
