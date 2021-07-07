@@ -3,12 +3,12 @@ apiVersion: v1
 metadata:
   name: nodeapp
 spec:
-  type: NodePort 
+  type: NodePort
   selector:
     app: nodeapp
   ports:
   - protocol: TCP
     port: 80
     targetPort: 8080
-    nodeport: 7000
+    nodePort: 30007
     
