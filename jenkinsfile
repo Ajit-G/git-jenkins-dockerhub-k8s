@@ -41,8 +41,8 @@ pipeline{
                       ./changeTag.sh "${tag}"''' 
                       
                  sshagent(['minikube-server']) {
-                    //sh 'ssh ubuntu@192.168.0.106 kubectl delete -f node-app-pod.yml'
-                    //sh 'ssh ubuntu@192.168.0.106 kubectl delete -f services.yml' 
+                    sh 'ssh ubuntu@192.168.0.106 kubectl delete -f node-app-pod.yml'
+                    sh 'ssh ubuntu@192.168.0.106 kubectl delete -f services.yml' 
                     sh 'ssh ubuntu@192.168.0.106 rm -rf /home/ubuntu/node-app-pod.yml services.yml'
                     sh 'scp ./node-app-pod.yml services.yml ubuntu@192.168.0.106:/home/ubuntu/'
                     script{
