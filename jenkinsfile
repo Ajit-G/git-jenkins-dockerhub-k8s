@@ -1,0 +1,57 @@
+pipeline{
+    agent any
+    environment{
+        tag = "${BUILD_NUMBER}"
+    }
+    stages{
+        stage("Docker build"){
+            steps{
+                echo "======== Starting Docker Build ========"
+                withCredentials([string(credentialsId: 'docker-hub', variable: 'docker_pass')]) {
+                    sh 'docker login -u ajit4 -p "${docker_pass}"'
+                    sh 'docker build -t ajit4/jenkins-k8s:with_plugin"${tag}" .'
+                }
+            }
+            post{
+                success{
+                    echo "========Docker Build successfully========"
+                }
+                failure{
+                    echo "========Docker Build failed========"
+                }
+            }
+        }
+        stage("Image push to docker hub"){
+            steps{
+                echo "======== Pushing image to registry ========"
+                sh 'docker push ajit4/jenkins-k8s:with_plugin"${tag}"'
+            }
+            post{
+                success{
+                    echo "========Image push successfully========"
+                }
+                failure{
+                    echo "========Image push  failed========"
+                }
+            }
+        }
+        stage("deploy on k8s"){
+            steps{
+                
+            }
+            
+        }
+    }
+    post{
+        always{
+            echo "========always========"
+            cleanWs()
+        }
+        success{
+            echo "========pipeline executed successfully ========"
+        }
+        failure{
+            echo "========pipeline execution failed========"
+        }
+    }
+}
