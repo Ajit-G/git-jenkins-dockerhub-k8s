@@ -9,7 +9,7 @@ pipeline{
                 echo "======== Starting Docker Build ========"
                 withCredentials([string(credentialsId: 'docker-hub', variable: 'docker_pass')]) {
                     sh 'docker login -u ajit4 -p "${docker_pass}"'
-                    sh 'docker build -t ajit4/jenkins-k8s:with_plugin"${tag}" .'
+                    sh 'docker build -t ajit4/jenkins-k8s:"${tag}" .'
                 }
             }
             post{
@@ -24,7 +24,7 @@ pipeline{
         stage("Image push to docker hub"){
             steps{
                 echo "======== Pushing image to registry ========"
-                sh 'docker push ajit4/jenkins-k8s:with_plugin"${tag}"'
+                sh 'docker push ajit4/jenkins-k8s:"${tag}"'
             }
             post{
                 success{
@@ -35,23 +35,23 @@ pipeline{
                 }
             }
         }
-        /*stage("deploy on k8s"){
+        stage("deploy to k8s"){
             steps{
-                    kubernetesdeploy (
-                    configs: 'pods.yml',
-                    kubeconfig_id: 'kubernates',
-                    enableConfigSubstitution: true )
-                    
+                kubernetesDeploy configs: 'k8s.yml', 
+                kubeConfig: [path: '/home/ubunut/.kube/config'], 
+                kubeconfigId: 'kubernates', 
+                secretName: '', 
+                ssh: [sshCredentialsId: 'minikube-server', 
+                sshServer: '192.168.0.106'], 
+                textCredentials: [certificateAuthorityData: '/home/ubuntu/.minikube/ca.crt', 
+                clientCertificateData: '/home/ubuntu/.minikube/profile/minikube/clinet.crt', 
+                clientKeyData: '/home/ubuntu/.minikube/profile/minikube/clinet.key', 
+                serverUrl: 'https://192.168.49.2:8443']
                 
             }
-            
-        }*/
-        stage("deploy-k8s"){
-            steps {
-               
-            }
-        }    
-        
+           
+        }
+
     }
     post{
         always{
