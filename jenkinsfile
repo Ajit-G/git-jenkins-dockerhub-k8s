@@ -38,14 +38,14 @@ pipeline{
         stage("deploy to k8s"){
             steps{
                 kubernetesDeploy configs: 'k8s.yml', 
-                kubeConfig: [path: '/home/ubunut/.kube/config'], 
+                kubeConfig: [path: '/home/ubuntu/.kube/config'], 
                 kubeconfigId: 'kubernates', 
                 secretName: '', 
                 ssh: [sshCredentialsId: 'minikube-server', 
                 sshServer: '192.168.0.106'], 
                 textCredentials: [certificateAuthorityData: '/home/ubuntu/.minikube/ca.crt', 
-                clientCertificateData: '/home/ubuntu/.minikube/profile/minikube/clinet.crt', 
-                clientKeyData: '/home/ubuntu/.minikube/profile/minikube/clinet.key', 
+                clientCertificateData: '/home/ubuntu/.minikube/profiles/minikube/client.crt', 
+                clientKeyData: '/home/ubuntu/.minikube/profiles/minikube/client.key', 
                 serverUrl: 'https://192.168.49.2:8443']
                 
             }
