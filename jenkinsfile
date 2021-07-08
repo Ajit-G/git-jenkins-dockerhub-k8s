@@ -39,8 +39,8 @@ pipeline{
             steps{
                 stage("deploy in kube"){
                     kubernatesdeploy {
-                    configs: "pods.yml",
-                    kubeconfig_id: "kubernates",
+                    configs: 'pods.yml',
+                    kubeconfig_id: 'kubernates',
                     enableConfigSubstitution: true
                     }
                 }
