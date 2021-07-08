@@ -37,13 +37,12 @@ pipeline{
         }
         stage("deploy on k8s"){
             steps{
-                stage("deploy in kube"){
                     kubernetesdeploy (
                     configs: 'pods.yml',
                     kubeconfig_id: 'kubernates',
                     enableConfigSubstitution: true )
                     
-                }
+                
             }
             
         }
