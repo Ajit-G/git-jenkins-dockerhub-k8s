@@ -35,7 +35,7 @@ pipeline{
                 }
             }
         }
-        stage("deploy on k8s"){
+        /*stage("deploy on k8s"){
             steps{
                     kubernetesdeploy (
                     configs: 'pods.yml',
@@ -45,7 +45,13 @@ pipeline{
                 
             }
             
-        }
+        }*/
+        stage("deploy-k8s"){
+            steps {
+               
+            }
+        }    
+        
     }
     post{
         always{
