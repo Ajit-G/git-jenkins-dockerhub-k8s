@@ -35,7 +35,7 @@ pipeline{
                 }
             }
         }
-        stage("deploy to k8s"){
+        /*stage("deploy to k8s"){
             steps{
                 kubernetesDeploy configs: 'k8s.yml', 
                 kubeConfig: [path: '/home/ubuntu/.kube/config'], 
@@ -52,7 +52,7 @@ pipeline{
            
         }
 
-    }
+    }*/
     post{
         always{
             echo "========always========"
